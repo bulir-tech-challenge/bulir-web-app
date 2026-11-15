@@ -1,7 +1,11 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 
-export function HomeHero() {
+interface HomeHeroProps {
+  onStart: () => void
+}
+
+export function HomeHero({ onStart }: HomeHeroProps) {
   return (
     <div className="relative z-10 flex flex-col items-center gap-5 px-6 text-center">
       <h1 className="font-display text-3xl leading-tight font-normal text-bulir-navy sm:text-4xl 2xl:text-5xl">
@@ -17,6 +21,7 @@ export function HomeHero() {
 
       <div className="mt-3 flex justify-center">
         <Button
+          onClick={onStart}
           className="relative z-10 shadow-lg shadow-brand/50"
           rightIcon={<ArrowRight size={16} strokeWidth={1.5} />}
         >

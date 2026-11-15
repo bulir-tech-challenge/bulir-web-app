@@ -1,10 +1,14 @@
-import { Link } from '@tanstack/react-router'
 import { LogIn } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { Logo } from '../../../components/ui/Logo'
 import { navItems } from '../data/home.content'
 
-export function HomeNavbar() {
+interface HomeNavbarProps {
+  onLogin: () => void
+  onRegister: () => void
+}
+
+export function HomeNavbar({ onLogin, onRegister }: HomeNavbarProps) {
   return (
     <header className="relative z-20 flex items-center justify-between px-6 py-5 lg:px-12">
       <Logo />
@@ -30,14 +34,15 @@ export function HomeNavbar() {
       </nav>
 
       <div className="flex items-center gap-3">
-        <Link
-          to="/login"
+        <button
+          type="button"
+          onClick={onLogin}
           className="flex items-center gap-1.5 text-xs font-medium text-bulir-navy hover:text-brand-deep"
         >
           <LogIn size={16} strokeWidth={1.5} />
           Entrar
-        </Link>
-        <Button variant="secondary" className="h-9 px-4 text-xs">
+        </button>
+        <Button variant="secondary" className="h-9 px-4 text-xs" onClick={onRegister}>
           Criar conta
         </Button>
       </div>
