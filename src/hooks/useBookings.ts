@@ -4,43 +4,59 @@ import { queryKeys } from '../lib/query-client'
 import type { Booking } from '../types'
 import type { CreateBookingFormData } from '../types/schemas'
 
-export function useBookings() {
+/** Reservas e saldo mudam juntos (o back-end ajusta ambos atomicamente). */
+function useInvalidateBookingData() {
   const queryClient = useQueryClient()
+  return () =>
+    Promise.all([
+      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all }),
+      queryClient.invalidateQueries({ queryKey: queryKeys.profile }),
+    ])
+}
 
-  const bookingsQuery = useQuery<Booking[]>({
+export function useCreateBooking() {
+  const invalidate = useInvalidateBookingData()
+
+  const mutation = useMutation({
+    mutationFn: (data: CreateBookingFormData) => bookingsService.createBooking(data),
+    onSuccess: invalidate,
+  })
+
+  return {
+    createBooking: mutation.mutateAsync,
+    isCreatingBooking: mutation.isPending,
+    createBookingError: mutation.error,
+    resetCreateBooking: mutation.reset,
+  }
+}
+
+export function useCancelBooking() {
+  const invalidate = useInvalidateBookingData()
+
+  const mutation = useMutation({
+    mutationFn: (id: string) => bookingsService.cancelBooking(id),
+    onSuccess: invalidate,
+  })
+
+  return {
+    cancelBooking: mutation.mutateAsync,
+    isCancellingBooking: mutation.isPending,
+    cancelBookingError: mutation.error,
+    resetCancelBooking: mutation.reset,
+  }
+}
+
+export function useBookings() {
+  const query = useQuery<Booking[]>({
     queryKey: queryKeys.bookings.all,
     queryFn: bookingsService.getBookings,
   })
 
-  const createBookingMutation = useMutation({
-    mutationFn: (data: CreateBookingFormData) => bookingsService.createBooking(data),
-    onSuccess: () => {
-      // Invalida histórico de reservas e o perfil (saldo atualizado atomicamente!)
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all })
-      queryClient.invalidateQueries({ queryKey: queryKeys.profile })
-    },
-  })
-
-  const cancelBookingMutation = useMutation({
-    mutationFn: (id: string) => bookingsService.cancelBooking(id),
-    onSuccess: () => {
-      // Invalida histórico e restaura saldo estornado no perfil
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.all })
-      queryClient.invalidateQueries({ queryKey: queryKeys.profile })
-    },
-  })
-
   return {
-    bookings: bookingsQuery.data ?? [],
-    isLoadingBookings: bookingsQuery.isLoading,
-    isErrorBookings: bookingsQuery.isError,
-    bookingsError: bookingsQuery.error,
-    refetchBookings: bookingsQuery.refetch,
-    createBooking: createBookingMutation.mutateAsync,
-    isCreatingBooking: createBookingMutation.isPending,
-    createBookingError: createBookingMutation.error,
-    cancelBooking: cancelBookingMutation.mutateAsync,
-    isCancellingBooking: cancelBookingMutation.isPending,
-    cancelBookingError: cancelBookingMutation.error,
+    bookings: query.data ?? [],
+    isLoadingBookings: query.isLoading,
+    isErrorBookings: query.isError,
+    bookingsError: query.error,
+    refetchBookings: query.refetch,
   }
 }
