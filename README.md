@@ -13,6 +13,15 @@ npm run dev              # http://localhost:3000 (ajuste a porta se a API usar a
 npm run build            # build de produção
 ```
 
+### Com Docker
+
+```bash
+docker build --build-arg VITE_API_URL=http://localhost:3000 -t bulir-web .
+docker run -p 8080:80 bulir-web      # http://localhost:8080
+```
+
+Imagem multi-stage (build com Node, servida por nginx com fallback de SPA, cache longa em `/assets` e cabeçalhos de segurança). A URL da API é embutida no build.
+
 ## Funcionalidades
 
 | Requisito | Onde |
