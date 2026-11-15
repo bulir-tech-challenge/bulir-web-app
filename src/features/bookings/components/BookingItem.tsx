@@ -7,16 +7,14 @@ import type { Booking } from '../../../types'
 
 interface BookingItemProps {
   booking: Booking
-  /** Nome da outra parte: prestador (para o cliente) ou cliente (para o prestador). */
+  /** Nome da outra parte (para o avatar): prestador, se vês como cliente; cliente, se vês como prestador. */
   counterpartName: string
-  counterpartLabel: string
   action?: ReactNode
 }
 
 export function BookingItem({
   booking,
   counterpartName,
-  counterpartLabel,
   action,
 }: BookingItemProps) {
   return (
@@ -27,10 +25,11 @@ export function BookingItem({
         <p className="truncate font-semibold text-bulir-navy">
           {booking.service?.name ?? 'Serviço removido'}
         </p>
-        <p className="truncate text-sm text-bulir-navy/60">
-          {counterpartLabel}: {counterpartName} ·{' '}
-          {formatDate(booking.createdAt)}
+        <p className="text-sm text-bulir-navy/60">
+          Prestador: {booking.service?.provider?.name ?? '—'} · Cliente:{' '}
+          {booking.client?.name ?? '—'}
         </p>
+        <p className="text-xs text-bulir-navy/40">{formatDate(booking.createdAt)}</p>
       </div>
 
       <div className="flex items-center justify-between gap-4 sm:justify-end">

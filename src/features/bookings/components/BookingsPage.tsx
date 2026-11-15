@@ -12,6 +12,16 @@ import { useBookingList } from '../hooks/useBookingList'
 import { useCancelBookingAction } from '../hooks/useCancelBookingAction'
 import { BookingItem } from './BookingItem'
 
+function cancelDescription(
+  isClient: boolean,
+  amount: number | undefined,
+): string {
+  const value = amount === undefined ? '' : formatKz(amount)
+  return isClient
+    ? `Vais receber ${value} de volta na tua carteira.`
+    : `${value} serão devolvidos ao cliente e debitados do teu saldo.`
+}
+
 export function BookingsPage() {
   const { user } = useAuth()
   const { bookings, isLoading, errorMessage } = useBookingList()
@@ -62,14 +72,13 @@ export function BookingsPage() {
             <BookingItem
               key={booking.id}
               booking={booking}
-              counterpartLabel={isClient ? 'Prestador' : 'Cliente'}
               counterpartName={
                 (isClient
                   ? booking.service?.provider?.name
                   : booking.client?.name) ?? 'Utilizador'
               }
               action={
-                isClient && booking.status === 'CONFIRMED' ? (
+                booking.status === 'CONFIRMED' ? (
                   <Button
                     variant="ghost"
                     className="h-10 px-4 text-red-600 hover:bg-red-50"
@@ -88,7 +97,7 @@ export function BookingsPage() {
         open={cancel.target !== null}
         danger
         title="Cancelar reserva?"
-        description={`Vais receber ${cancel.target ? formatKz(cancel.target.amount) : ''} de volta na tua carteira.`}
+        description={cancelDescription(isClient, cancel.target?.amount)}
         confirmLabel="Cancelar reserva"
         isLoading={cancel.isCancelling}
         onClose={cancel.dismiss}
