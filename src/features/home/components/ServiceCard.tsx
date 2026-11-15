@@ -20,7 +20,9 @@ export function ServiceCard({ service, className = '' }: ServiceCardProps) {
         <span className="rounded bg-brand/15 px-2 py-0.5 text-[9px] font-medium text-brand-deep">
           {service.category}
         </span>
-        <p className="text-xs leading-snug font-medium text-bulir-navy">{service.title}</p>
+        <p className="text-xs leading-snug font-medium text-bulir-navy">
+          {service.title}
+        </p>
         <p className="text-xs font-bold text-bulir-navy">{service.price}</p>
       </div>
       {/* Haste + ponto que liga o cartão às linhas */}

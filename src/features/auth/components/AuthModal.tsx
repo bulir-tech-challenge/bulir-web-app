@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import { Logo } from '../../../components/ui/Logo'
 import { Modal } from '../../../components/ui/Modal'
 import type { AuthMode } from '../hooks/useAuthModal'
@@ -29,7 +30,13 @@ const copy = {
 }
 
 export function AuthModal({ mode, onModeChange, onClose }: AuthModalProps) {
+  const navigate = useNavigate()
   const current = mode ? copy[mode] : copy.login
+
+  const handleSuccess = () => {
+    onClose()
+    void navigate({ to: '/app' })
+  }
 
   return (
     <Modal open={mode !== null} onClose={onClose} label={current.title}>
@@ -41,11 +48,17 @@ export function AuthModal({ mode, onModeChange, onClose }: AuthModalProps) {
             <Logo />
 
             <div className="flex flex-col gap-1">
-              <h2 className="font-display text-2xl font-bold text-bulir-navy">{current.title}</h2>
+              <h2 className="font-display text-2xl font-bold text-bulir-navy">
+                {current.title}
+              </h2>
               <p className="text-sm text-bulir-navy/60">{current.subtitle}</p>
             </div>
 
-            {mode === 'login' ? <LoginForm onSuccess={onClose} /> : <RegisterForm onSuccess={onClose} />}
+            {mode === 'login' ? (
+              <LoginForm onSuccess={handleSuccess} />
+            ) : (
+              <RegisterForm onSuccess={handleSuccess} />
+            )}
 
             <p className="text-center text-sm text-bulir-navy/60">
               {current.switchText}{' '}

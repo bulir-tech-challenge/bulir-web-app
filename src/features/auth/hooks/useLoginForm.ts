@@ -22,6 +22,8 @@ export function useLoginForm(onSuccess: () => void) {
     control: form.control,
     onSubmit,
     isSubmitting: isLoggingIn,
-    errorMessage: loginError ? extractErrorMessage(loginError, 'Credenciais inválidas') : null,
+    errorMessage: loginError
+      ? extractErrorMessage(loginError, 'Credenciais inválidas')
+      : null,
   }
 }

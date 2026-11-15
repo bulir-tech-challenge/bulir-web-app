@@ -12,13 +12,19 @@ interface RegisterFormProps {
 }
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
-  const { control, onSubmit, isSubmitting, errorMessage } = useRegisterForm(onSuccess)
+  const { control, onSubmit, isSubmitting, errorMessage } =
+    useRegisterForm(onSuccess)
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
       {errorMessage && <Alert message={errorMessage} />}
 
-      <FormSegmentedControl control={control} name="role" label="Quero entrar como" options={roleOptions} />
+      <FormSegmentedControl
+        control={control}
+        name="role"
+        label="Quero entrar como"
+        options={roleOptions}
+      />
 
       <FormInput
         control={control}
@@ -56,7 +62,12 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         autoComplete="new-password"
       />
 
-      <Button type="submit" fullWidth isLoading={isSubmitting} rightIcon={<ArrowRight size={18} strokeWidth={1.5} />}>
+      <Button
+        type="submit"
+        fullWidth
+        isLoading={isSubmitting}
+        rightIcon={<ArrowRight size={18} strokeWidth={1.5} />}
+      >
         Criar conta
       </Button>
     </form>

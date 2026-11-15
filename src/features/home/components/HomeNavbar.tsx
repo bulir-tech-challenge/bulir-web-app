@@ -1,14 +1,20 @@
-import { LogIn } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+import { LayoutDashboard, LogIn } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { Logo } from '../../../components/ui/Logo'
 import { navItems } from '../data/home.content'
 
 interface HomeNavbarProps {
+  isAuthenticated: boolean
   onLogin: () => void
   onRegister: () => void
 }
 
-export function HomeNavbar({ onLogin, onRegister }: HomeNavbarProps) {
+export function HomeNavbar({
+  isAuthenticated,
+  onLogin,
+  onRegister,
+}: HomeNavbarProps) {
   return (
     <header className="relative z-20 flex items-center justify-between px-6 py-5 lg:px-12">
       <Logo />
@@ -34,17 +40,33 @@ export function HomeNavbar({ onLogin, onRegister }: HomeNavbarProps) {
       </nav>
 
       <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onLogin}
-          className="flex items-center gap-1.5 text-xs font-medium text-bulir-navy hover:text-brand-deep"
-        >
-          <LogIn size={16} strokeWidth={1.5} />
-          Entrar
-        </button>
-        <Button variant="secondary" className="h-9 px-4 text-xs" onClick={onRegister}>
-          Criar conta
-        </Button>
+        {isAuthenticated ? (
+          <Link
+            to="/app"
+            className="inline-flex h-9 items-center gap-2 rounded-full bg-bulir-navy px-4 text-xs font-semibold text-white transition-colors hover:bg-bulir-navy/90"
+          >
+            <LayoutDashboard size={16} strokeWidth={1.5} />
+            Ir para o painel
+          </Link>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={onLogin}
+              className="flex items-center gap-1.5 text-xs font-medium text-bulir-navy hover:text-brand-deep"
+            >
+              <LogIn size={16} strokeWidth={1.5} />
+              Entrar
+            </button>
+            <Button
+              variant="secondary"
+              className="h-9 px-4 text-xs"
+              onClick={onRegister}
+            >
+              Criar conta
+            </Button>
+          </>
+        )}
       </div>
     </header>
   )

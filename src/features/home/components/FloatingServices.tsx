@@ -12,7 +12,11 @@ export function FloatingServices() {
   return (
     <div className="pointer-events-none absolute inset-0 hidden lg:block">
       {services.map((service, index) => (
-        <ServiceCard key={service.id} service={service} className={positions[index]} />
+        <ServiceCard
+          key={service.id}
+          service={service}
+          className={positions[index]}
+        />
       ))}
     </div>
   )

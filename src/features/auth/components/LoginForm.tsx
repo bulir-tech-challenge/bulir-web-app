@@ -10,7 +10,8 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSuccess }: LoginFormProps) {
-  const { control, onSubmit, isSubmitting, errorMessage } = useLoginForm(onSuccess)
+  const { control, onSubmit, isSubmitting, errorMessage } =
+    useLoginForm(onSuccess)
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">

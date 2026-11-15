@@ -16,7 +16,8 @@ export function AuthEvents() {
     }
 
     window.addEventListener('bulir:auth:unauthorized', onUnauthorized)
-    return () => window.removeEventListener('bulir:auth:unauthorized', onUnauthorized)
+    return () =>
+      window.removeEventListener('bulir:auth:unauthorized', onUnauthorized)
   }, [navigate, queryClient])
 
   return null

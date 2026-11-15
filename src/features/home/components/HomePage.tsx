@@ -2,6 +2,7 @@ import enthusiastic from '../../../assets/images/Enthusiastic-pana.svg'
 import cashPayment from '../../../assets/images/Cash Payment-bro.svg'
 import { Illustration } from '../../../components/illustrations/Illustration'
 import { PixelGridBackground } from '../../../components/illustrations/PixelGridBackground'
+import { useAuth } from '../../../hooks/useAuth'
 import { AuthModal } from '../../auth/components/AuthModal'
 import { useAuthModal } from '../../auth/hooks/useAuthModal'
 import { FloatingServices } from './FloatingServices'
@@ -12,6 +13,7 @@ import { HomeStats } from './HomeStats'
 
 export function HomePage() {
   const authModal = useAuthModal()
+  const { isAuthenticated } = useAuth()
 
   return (
     <div
@@ -20,6 +22,7 @@ export function HomePage() {
     >
       <PixelGridBackground />
       <HomeNavbar
+        isAuthenticated={isAuthenticated}
         onLogin={() => authModal.open('login')}
         onRegister={() => authModal.open('register')}
       />
@@ -29,7 +32,10 @@ export function HomePage() {
           <HeroOrb />
           <FloatingServices />
         </div>
-        <HomeHero onStart={() => authModal.open('register')} />
+        <HomeHero
+          isAuthenticated={isAuthenticated}
+          onStart={() => authModal.open('register')}
+        />
 
         <Illustration
           src={enthusiastic}

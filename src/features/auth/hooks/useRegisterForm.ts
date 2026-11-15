@@ -6,11 +6,18 @@ import { registerSchema } from '../../../types/schemas'
 import type { RegisterFormData } from '../../../types/schemas'
 
 export function useRegisterForm(onSuccess: () => void) {
-  const { register, login, isRegistering, isLoggingIn, registerError } = useAuth()
+  const { register, login, isRegistering, isLoggingIn, registerError } =
+    useAuth()
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { name: '', nif: '', email: '', password: '', role: 'CLIENT' },
+    defaultValues: {
+      name: '',
+      nif: '',
+      email: '',
+      password: '',
+      role: 'CLIENT',
+    },
   })
 
   const onSubmit = form.handleSubmit(async (values) => {
@@ -23,6 +30,8 @@ export function useRegisterForm(onSuccess: () => void) {
     control: form.control,
     onSubmit,
     isSubmitting: isRegistering || isLoggingIn,
-    errorMessage: registerError ? extractErrorMessage(registerError, 'Não foi possível criar a conta') : null,
+    errorMessage: registerError
+      ? extractErrorMessage(registerError, 'Não foi possível criar a conta')
+      : null,
   }
 }
