@@ -7,11 +7,15 @@ interface ModalProps {
   onClose: () => void
   /** Rótulo acessível do diálogo. */
   label: string
+  /** `sm` para confirmações, `lg` para diálogos com ilustração. */
+  size?: 'sm' | 'md' | 'lg'
   children: ReactNode
 }
 
 /** Modal baseado no <dialog> nativo: foco preso, ESC e backdrop já tratados pelo browser. */
-export function Modal({ open, onClose, label, children }: ModalProps) {
+const sizes = { sm: 'max-w-md', md: 'max-w-xl', lg: 'max-w-4xl' }
+
+export function Modal({ open, onClose, label, size = 'lg', children }: ModalProps) {
   const ref = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -29,7 +33,7 @@ export function Modal({ open, onClose, label, children }: ModalProps) {
       onClick={(e) => {
         if (e.target === ref.current) onClose()
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-4xl overflow-hidden rounded-3xl bg-white p-0 shadow-2xl backdrop:bg-bulir-navy/40 backdrop:backdrop-blur-sm"
+      className={`m-auto w-[calc(100%-2rem)] ${sizes[size]} overflow-hidden rounded-3xl bg-white p-0 shadow-2xl backdrop:bg-bulir-navy/40 backdrop:backdrop-blur-sm`}
     >
       <button
         type="button"
