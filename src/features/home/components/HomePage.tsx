@@ -12,13 +12,13 @@ export function HomePage() {
   return (
     <div
       id="inicio"
-      className="relative flex h-screen flex-col overflow-hidden bg-white"
+      className="relative flex min-h-dvh flex-col overflow-x-hidden bg-white lg:h-dvh lg:overflow-hidden"
     >
       <PixelGridBackground />
       <HomeNavbar />
 
       <main className="relative flex flex-1 flex-col items-center justify-between">
-        <div className="relative flex w-full flex-1 justify-center pt-2">
+        <div className="relative flex min-h-64 w-full flex-1 justify-center pt-2">
           <HeroOrb />
           <FloatingServices />
         </div>
