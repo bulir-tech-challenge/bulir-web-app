@@ -5,8 +5,12 @@ import { FormInput } from '../../../components/form/FormInput'
 import { FormPasswordInput } from '../../../components/form/FormPasswordInput'
 import { useLoginForm } from '../hooks/useLoginForm'
 
-export function LoginForm() {
-  const { control, onSubmit, isSubmitting, errorMessage } = useLoginForm()
+interface LoginFormProps {
+  onSuccess: () => void
+}
+
+export function LoginForm({ onSuccess }: LoginFormProps) {
+  const { control, onSubmit, isSubmitting, errorMessage } = useLoginForm(onSuccess)
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
