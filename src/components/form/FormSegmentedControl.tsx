@@ -1,5 +1,10 @@
 import { Controller } from 'react-hook-form'
-import type { Control, FieldPath, FieldValues, PathValue } from 'react-hook-form'
+import type {
+  Control,
+  FieldPath,
+  FieldValues,
+  PathValue,
+} from 'react-hook-form'
 import { SegmentedControl } from '../ui/SegmentedControl'
 
 interface FormSegmentedControlProps<T extends FieldValues, V extends string> {

@@ -1,9 +1,9 @@
-import { LayoutDashboard, Wallet } from 'lucide-react'
+import { Briefcase, LayoutDashboard, Wallet } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { Role } from '../../../types'
 
 export interface NavigationItem {
-  to: '/app' | '/app/wallet'
+  to: '/app' | '/app/services' | '/app/wallet'
   exact?: boolean
   icon: LucideIcon
   /** Texto por perfil; usa `default` quando não há variação. */
@@ -12,6 +12,11 @@ export interface NavigationItem {
 
 export const navigation: NavigationItem[] = [
   { to: '/app', exact: true, icon: LayoutDashboard, label: { default: 'Visão geral' } },
+  {
+    to: '/app/services',
+    icon: Briefcase,
+    label: { CLIENT: 'Explorar serviços', PROVIDER: 'Meus serviços', default: 'Serviços' },
+  },
   { to: '/app/wallet', icon: Wallet, label: { default: 'Carteira' } },
 ]
 

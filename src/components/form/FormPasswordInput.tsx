@@ -3,8 +3,10 @@ import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { PasswordInput } from '../ui/PasswordInput'
 import type { InputProps } from '../ui/Input'
 
-interface FormPasswordInputProps<T extends FieldValues>
-  extends Omit<InputProps, 'name' | 'error' | 'type' | 'leftIcon' | 'rightElement'> {
+interface FormPasswordInputProps<T extends FieldValues> extends Omit<
+  InputProps,
+  'name' | 'error' | 'type' | 'leftIcon' | 'rightElement'
+> {
   control: Control<T>
   name: FieldPath<T>
 }
