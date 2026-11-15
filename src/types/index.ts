@@ -26,8 +26,6 @@ export interface Service {
   provider?: {
     id: string
     name: string
-    email: string
-    nif: string
   }
   createdAt: string
   updatedAt: string
@@ -39,8 +37,6 @@ export interface Booking {
   client?: {
     id: string
     name: string
-    email: string
-    nif: string
   }
   serviceId: string
   service?: Service
