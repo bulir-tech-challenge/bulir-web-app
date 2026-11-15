@@ -38,7 +38,7 @@ export function BookingsPage() {
         description={
           isClient
             ? 'O histórico dos serviços que reservaste.'
-            : 'Os clientes que reservaram os teus serviços.'
+            : 'O histórico das reservas feitas nos teus serviços.'
         }
       />
 
