@@ -13,6 +13,7 @@
   --color-bulir-mint: #31ECC6;
   --color-brand: #31ECC6;
   --color-brand-hover: #24d4b0;
+  --color-brand-deep: #0b9c83;
   --color-dark-accent: #0C2340;
   --color-neutral-bg: #FFFFFF;
 }
@@ -28,4 +29,22 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Quadrados do fundo que surgem e desaparecem suavemente */
+@keyframes pixel-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: var(--pixel-peak, 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-cell {
+    animation: none !important;
+    opacity: 0.05;
+  }
 }
