@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PageHeader } from '../../components/ui/PageHeader'
+import { OverviewPage } from '../../features/overview/components/OverviewPage'
 
 export const Route = createFileRoute('/app/')({
-  component: () => <PageHeader title="Visão geral" />,
+  component: OverviewPage,
 })
