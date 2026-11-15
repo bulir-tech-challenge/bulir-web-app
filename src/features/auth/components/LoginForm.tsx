@@ -19,9 +19,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
       <FormInput
         control={control}
-        name="email"
+        name="identifier"
         label="E-mail ou NIF"
-        placeholder="exemplo@email.com"
+        placeholder="exemplo@email.com ou NIF"
         autoComplete="username"
         leftIcon={<Mail size={18} strokeWidth={1.5} />}
       />

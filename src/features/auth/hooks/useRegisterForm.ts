@@ -22,7 +22,7 @@ export function useRegisterForm(onSuccess: () => void) {
 
   const onSubmit = form.handleSubmit(async (values) => {
     await register(values)
-    await login({ email: values.email, password: values.password })
+    await login({ identifier: values.email, password: values.password })
     onSuccess()
   })
 
