@@ -1,13 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import '@fontsource-variable/geist';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/800.css';
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --font-sans: 'Geist Variable', system-ui, -apple-system, sans-serif;
+  --font-display: 'Poppins', 'Geist Variable', sans-serif;
   --color-bulir-navy: #0C2340;
   --color-bulir-mint: #31ECC6;
   --color-brand: #31ECC6;
   --color-brand-hover: #24d4b0;
+  --color-brand-deep: #0b9c83;
   --color-dark-accent: #0C2340;
   --color-neutral-bg: #FFFFFF;
 }
@@ -23,4 +29,22 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Quadrados do fundo que surgem e desaparecem suavemente */
+@keyframes pixel-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: var(--pixel-peak, 0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-cell {
+    animation: none !important;
+    opacity: 0.05;
+  }
 }

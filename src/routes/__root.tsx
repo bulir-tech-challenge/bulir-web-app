@@ -2,6 +2,8 @@ import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { Toaster } from 'sonner'
+import { AuthEvents } from '../features/auth/components/AuthEvents'
 import { queryClient } from '../lib/query-client'
 
 import '../assets/css/global.css'
@@ -14,6 +16,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <AuthEvents />
+      <Toaster position="top-right" richColors closeButton />
       <TanStackDevtools
         config={{
           position: 'bottom-right',
